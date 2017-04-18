@@ -1,0 +1,178 @@
+<div class="apidocDiv">
+<style>
+/*csslint
+*/
+.apidocDiv {
+    background: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.apidocDiv a[href] {
+    color: #33f;
+    font-weight: bold;
+    text-decoration: none;
+}
+.apidocDiv a[href]:hover {
+    text-decoration: underline;
+}
+.apidocCodeCommentSpan {
+    background: #bbf;
+    color: #000;
+    display: block;
+}
+.apidocCodeKeywordSpan {
+    color: #d00;
+    font-weight: bold;
+}
+.apidocCodePre {
+    background: #eef;
+    border: 1px solid;
+    color: #777;
+    padding: 5px;
+    white-space: pre-wrap;
+}
+.apidocFooterDiv {
+    margin-top: 20px;
+    text-align: center;
+}
+.apidocModuleLi {
+    margin-top: 10px;
+}
+.apidocSectionDiv {
+    border-top: 1px solid;
+    margin-top: 20px;
+}
+.apidocSignatureSpan {
+    color: #777;
+    font-weight: bold;
+}
+</style>
+<h1>api documentation for
+    <a
+
+        href="https://github.com/kimmobrunfeldt/chokidar-cli"
+
+    >chokidar-cli (v1.2.0)</a>
+</h1>
+<h4>Ultra-fast cross-platform command line utility to watch file system changes.</h4>
+<div class="apidocSectionDiv"><a
+    href="#apidoc.tableOfContents"
+    id="apidoc.tableOfContents"
+><h1>table of contents</h1></a><ol>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.chokidar-cli">module chokidar-cli</a><ol>
+
+        <li>
+
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">chokidar-cli.</span>utils</span>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.chokidar-cli.utils">module chokidar-cli.utils</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.chokidar-cli.utils.run">
+            function <span class="apidocSignatureSpan">chokidar-cli.utils.</span>run
+            <span class="apidocSignatureSpan">(cmd, opts)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+</ol></div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.chokidar-cli" id="apidoc.module.chokidar-cli">module chokidar-cli</a></h1>
+
+
+
+</div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.chokidar-cli.utils" id="apidoc.module.chokidar-cli.utils">module chokidar-cli.utils</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.chokidar-cli.utils.run" id="apidoc.element.chokidar-cli.utils.run">
+        function <span class="apidocSignatureSpan">chokidar-cli.utils.</span>run
+        <span class="apidocSignatureSpan">(cmd, opts)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">function run(cmd, opts) {
+    if (!SHELL_PATH) {
+        // If we cannot resolve shell, better to just crash
+        throw new Error(&#x27;$SHELL environment variable is not set.&#x27;);
+    }
+
+    opts = _.merge({
+        pipe: true,
+        cwd: undefined,
+        callback: function(child) {
+            // Since we return promise, we need to provide
+            // this callback if one wants to access the child
+            // process reference
+            // Called immediately after successful child process
+            // spawn
+        }
+    }, opts);
+
+    return new Promise(function(resolve, reject) {
+        var child;
+
+        try {
+            child = childProcess.spawn(SHELL_PATH, [EXECUTE_OPTION, cmd], {
+                cwd: opts.cwd,
+                stdio: opts.pipe ? &#x27;inherit&#x27; : null
+            });
+        } catch (e) {
+            return Promise.reject(e);
+        }
+
+        opts.callback(child);
+
+        function errorHandler(err) {
+            child.removeListener(&#x27;close&#x27;, closeHandler);
+            reject(err);
+        }
+
+        function closeHandler(exitCode) {
+            child.removeListener(&#x27;error&#x27;, errorHandler);
+            resolve(exitCode);
+        }
+
+        child.once(&#x27;error&#x27;, errorHandler);
+        child.once(&#x27;close&#x27;, closeHandler);
+    });
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+        }
+
+        return ignore;
+    });
+}
+
+function run(cmd) {
+    return utils.<span class="apidocCodeKeywordSpan">run</span>(cmd)
+    .catch(function(err) {
+        console.error(&#x27;Error when executing&#x27;, cmd);
+        console.error(err.stack);
+    });
+}
+
+main();
+...</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocFooterDiv">
+    [ this document was created with
+    <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a>
+    ]
+</div>
+</div>
