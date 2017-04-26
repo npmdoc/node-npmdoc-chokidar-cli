@@ -1,6 +1,6 @@
 # npmdoc-chokidar-cli
 
-#### api documentation for  [chokidar-cli (v1.2.0)](https://github.com/kimmobrunfeldt/chokidar-cli)  [![npm package](https://img.shields.io/npm/v/npmdoc-chokidar-cli.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-chokidar-cli) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-chokidar-cli.svg)](https://travis-ci.org/npmdoc/node-npmdoc-chokidar-cli)
+#### basic api documentation for  [chokidar-cli (v1.2.0)](https://github.com/kimmobrunfeldt/chokidar-cli)  [![npm package](https://img.shields.io/npm/v/npmdoc-chokidar-cli.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-chokidar-cli) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-chokidar-cli.svg)](https://travis-ci.org/npmdoc/node-npmdoc-chokidar-cli)
 
 #### Ultra-fast cross-platform command line utility to watch file system changes.
 
